@@ -10,11 +10,11 @@ An enhanced double-click search interface for Grasshopper with favorites and fas
   <tr>
     <td align="center">
       <b>Favorites</b><br>
-      <img src="docs/images/ghquicksearch-popup.png" width="320">
+      <img src="docs/images/ghquicksearch-popup.png" width="280">
     </td>
     <td align="center">
       <b>Search</b><br>
-      <img src="docs/images/ghquicksearch-popup-search.png" width="320">
+      <img src="docs/images/ghquicksearch-popup-search.png" width="280">
     </td>
   </tr>
 </table>
