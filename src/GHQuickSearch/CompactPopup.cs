@@ -30,7 +30,7 @@ namespace GHQuickSearch
         private readonly Action settings;
         private readonly Point anchor;
         private readonly Label header=new Label();
-        private readonly FlowLayoutPanel grid=new FlowLayoutPanel();
+        private readonly Panel grid=new Panel();
         private readonly TextBox query=new TextBox();
         private readonly ListBox hits=new ListBox();
         private readonly Label empty=new Label {Text="No matching components",TextAlign=ContentAlignment.MiddleCenter,ForeColor=Color.DimGray,Visible=false};
@@ -63,7 +63,7 @@ namespace GHQuickSearch
             BackColor=Color.FromArgb(235,237,240);Font=textFont;KeyPreview=true;Location=anchor;
             header.Name="SettingsBar";header.AccessibleName="Favorites settings";header.BackColor=Color.FromArgb(178,181,185);header.Cursor=Cursors.Hand;
             header.Click+=(s,e)=>{acting=true;Close();settings();};tips.SetToolTip(header,"Favorites settings · add, remove and drag to reorder");
-            grid.Name="FavoritesGrid";grid.AutoScroll=true;grid.WrapContents=true;grid.FlowDirection=FlowDirection.LeftToRight;grid.Margin=Padding.Empty;
+            grid.Name="FavoritesGrid";grid.AutoScroll=false;grid.Margin=Padding.Empty;
             query.Name="SearchBox";query.AccessibleName="Search components";query.BorderStyle=BorderStyle.None;
             DoubleBuffered=true;
             ResizeRedraw=true;
@@ -216,29 +216,22 @@ namespace GHQuickSearch
             int desired=searching?Math.Max(1,Math.Min(9,hits.Items.Count))*Px(32)+Px(6):GridRows(favorites.Count)*Px(29)+Px(8);
             int chrome=Px(26+2);
             int maxBody=Math.Max(Px(38),searching && favoritesLocation.HasValue ? favoritesBottom-area.Top-chrome : area.Height-chrome-Px(16));
-            int body=Math.Max(Px(38),Math.Min(desired,maxBody));
-            int columns=Columns;
-            if(!searching && desired>body)
-            {
-                columns=Math.Max(1,(Px(176)-SystemInformation.VerticalScrollBarWidth-Px(2))/Px(29));
-                desired=GridRows(favorites.Count,columns)*Px(29)+Px(8);
-                body=Math.Max(Px(38),Math.Min(desired,maxBody));
-            }
-            ClientSize=new Size(Px(184),chrome+body);
-            header.Bounds=new Rectangle((ClientSize.Width-Px(29))/2,Px(4),Px(29),Px(18));
+            int body=searching?Math.Max(Px(38),Math.Min(desired,maxBody)):desired;
+            ClientSize=new Size(Columns*Px(29)+Px(10),chrome+body);
             grid.Bounds=hits.Bounds=empty.Bounds=new Rectangle(Px(6),Px(5),ClientSize.Width-Px(12),body-Px(5));
             grid.Bounds=new Rectangle(Px(4),Px(5),ClientSize.Width-Px(8),body-Px(5));
             grid.SuspendLayout();
-            int available=grid.Width-(desired>body&&!searching?SystemInformation.VerticalScrollBarWidth:0);
-            int spacing=Math.Max(0,(available-Px(4)-columns*Px(29))/(columns-1));
-            int left=Math.Max(0,(available-columns*Px(29)-(columns-1)*spacing)/2);
-            grid.Padding=new Padding(left,0,left,Px(3));
+            int left=(grid.Width-Columns*Px(29))/2;
+            grid.Padding=Padding.Empty;
             for(int i=0;i<grid.Controls.Count;i++)
-                grid.Controls[i].Margin=new Padding(0,0,(i%columns==columns-1)?0:spacing,0);
+            {
+                grid.Controls[i].Margin=Padding.Empty;
+                grid.Controls[i].Location=new Point(left+(i%Columns)*Px(29),(i/Columns)*Px(29));
+            }
             grid.ResumeLayout(true);
             query.Bounds=new Rectangle(Px(6),body+Px(5),ClientSize.Width-Px(12),Px(18));
             hits.ItemHeight=Px(32);grid.Visible=!searching;hits.Visible=searching&&hits.Items.Count>0;empty.Visible=searching&&hits.Items.Count==0;
-            if(!searching || !favoritesLocation.HasValue)
+            if(!favoritesLocation.HasValue)
             {
                 favoritesCenter=body/2+Px(1);
                 favoritesLocation=PositionAtFavorites(anchor,Size,area,favoritesCenter);
@@ -413,6 +406,7 @@ namespace GHQuickSearch
         protected override void Dispose(bool disposing){if(disposing){if(mouseHook!=IntPtr.Zero){UnhookWindowsHookEx(mouseHook);mouseHook=IntPtr.Zero;}Application.RemoveMessageFilter(this);tips.Dispose();debounce.Dispose();textFont.Dispose();deleteCursor?.Dispose();if(deleteCursorHandle!=IntPtr.Zero){DestroyCursor(deleteCursorHandle);deleteCursorHandle=IntPtr.Zero;}}base.Dispose(disposing);}
     }
 }
+
 
 
 

@@ -126,6 +126,16 @@ class Program
             }
             finally{Marshal.FreeHGlobal(data);}
         }
+        using(var form=new CompactPopup(items.Take(6).ToList(),anchor,q=>items,id=>true,null))
+        {
+            load(form);int fixedBottom=form.Bottom;int oldTop=form.Top;
+            var many=Enumerable.Range(0,36).Select(i=>new CompactItem{Id=Guid.NewGuid(),Name="Item "+i}).ToList();
+            typeof(CompactPopup).GetMethod("CommitFavorites",BindingFlags.NonPublic|BindingFlags.Instance).Invoke(form,new object[]{many});
+            var grid=(Panel)form.Controls["FavoritesGrid"];
+            Check(!grid.AutoScroll&&!grid.VerticalScroll.Visible&&!grid.HorizontalScroll.Visible,"favorites never show scrollbars");
+            Check(form.Bottom==fixedBottom&&form.Top<oldTop,"adding favorites grows upwards with fixed search field");
+            Check(grid.Controls[35].Bottom<=grid.ClientSize.Height&&grid.Controls[5].Right<=grid.ClientSize.Width,"all 36 favorites fit in six complete rows");
+        }
         var ids=items.Take(3).Select(i=>i.Id).ToList();
         Check(FavoritesStore.Reordered(ids,ids[0],3).SequenceEqual(new[]{ids[1],ids[2],ids[0]}),"drag first favorite to end");
         Check(FavoritesStore.Reordered(ids,ids[2],0).SequenceEqual(new[]{ids[2],ids[0],ids[1]}),"drag last favorite to beginning");
@@ -221,6 +231,7 @@ class Program
         Console.WriteLine("GRASSHOPPER INTEGRATION TESTS PASSED");
     }
 }
+
 
 
 

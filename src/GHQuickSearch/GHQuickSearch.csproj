@@ -5,7 +5,7 @@
     <UseWindowsForms>true</UseWindowsForms>
     <AssemblyName>GHQuickSearch</AssemblyName>
     <TargetExt>.gha</TargetExt>
-    <Version>0.4.16</Version>
+    <Version>0.4.17</Version>
     <RhinoSystemDir Condition="'$(RhinoSystemDir)' == ''">C:/Program Files/Rhino 8/System</RhinoSystemDir>
     <GrasshopperDir Condition="'$(GrasshopperDir)' == ''">C:/Program Files/Rhino 8/Plug-ins/Grasshopper</GrasshopperDir>
   </PropertyGroup>
@@ -16,6 +16,7 @@
     <Reference Include="System.Runtime.Serialization" />
   </ItemGroup>
 </Project>
+
 
 
 
