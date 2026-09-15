@@ -2,6 +2,14 @@
 
 An enhanced double-click search interface for Grasshopper with favorites and faster component access.
 
+## Preview
+
+### Favorites
+![GHQuickSearch favorites popup](docs/images/ghquicksearch-popup.png)
+
+### Search
+![GHQuickSearch search popup](docs/images/ghquicksearch-popup-search.png)
+
 GHQuickSearch is a Windows plug-in for **Rhino 8 + Grasshopper 1**. This source snapshot is version **0.4.16**.
 
 ## Features
