@@ -28,6 +28,18 @@ The plug-in adds a UI, not document components. Existing GH definitions do not a
 
 The project uses Windows Forms, System.Drawing and Windows native UI APIs; this source does not target Rhino for macOS.
 
+## Installation
+
+1. Download `GHQuickSearch.gha` from the latest GitHub Release.
+2. Open Grasshopper.
+3. Go to **File → Special Folders → Components Folder**.
+4. Copy `GHQuickSearch.gha` into the Components folder.
+5. If Windows blocks the file, right-click it → **Properties** → **Unblock**.
+6. Restart Rhino / Grasshopper.
+7. Double-click the Grasshopper canvas to open GHQuickSearch.
+
+> GHQuickSearch currently targets Windows with Rhino 8 and its bundled Grasshopper.
+
 ## Dependencies and resources
 
 These assemblies are referenced from the Rhino installation, with `Private=false`:
