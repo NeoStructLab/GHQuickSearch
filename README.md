@@ -2,6 +2,23 @@
 
 An enhanced double-click search interface for Grasshopper with favorites and faster component access.
 
+## Preview
+
+## Preview
+
+<table>
+  <tr>
+    <td align="center">
+      <b>Favorites</b><br>
+      <img src="docs/images/ghquicksearch-popup.png" width="280">
+    </td>
+    <td align="center">
+      <b>Search</b><br>
+      <img src="docs/images/ghquicksearch-popup-search.png" width="280">
+    </td>
+  </tr>
+</table>
+
 GHQuickSearch is a Windows plug-in for **Rhino 8 + Grasshopper 1**. This source snapshot is version **0.4.16**.
 
 ## Features
@@ -27,6 +44,18 @@ The plug-in adds a UI, not document components. Existing GH definitions do not a
 - Optional: Visual Studio with .NET desktop development support.
 
 The project uses Windows Forms, System.Drawing and Windows native UI APIs; this source does not target Rhino for macOS.
+
+## Installation
+
+1. Download `GHQuickSearch.gha` from the latest GitHub Release.
+2. Open Grasshopper.
+3. Go to **File → Special Folders → Components Folder**.
+4. Copy `GHQuickSearch.gha` into the Components folder.
+5. If Windows blocks the file, right-click it → **Properties** → **Unblock**.
+6. Restart Rhino / Grasshopper.
+7. Double-click the Grasshopper canvas to open GHQuickSearch.
+
+> GHQuickSearch currently targets Windows with Rhino 8 and its bundled Grasshopper.
 
 ## Dependencies and resources
 
