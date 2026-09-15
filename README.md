@@ -4,8 +4,6 @@ An enhanced double-click search interface for Grasshopper with favorites and fas
 
 ## Preview
 
-## Preview
-
 <table>
   <tr>
     <td align="center">
